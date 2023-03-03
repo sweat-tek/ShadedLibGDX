@@ -14,8 +14,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 13
-    - name: Build library
+    - name: Deploy library
       env:
         SECRET_USER_NAME: ${{ secrets.SECRET_USER_NAME }}
         SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
-      run: mvn deploy -DskipITs -s .maven-settings.xml -f ./pom.xml
+      run: mvn deploy
