@@ -23,8 +23,8 @@
   <servers>
     <server>
       <id>github</id>
-      <username>${secrets.SECRET_USER_NAME}</username>
-      <password>${secrets.SECRET_USER_TOKEN}</password>
+      <username>corfixen</username>
+      <password>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</password>
     </server>
   </servers>
 </settings>
