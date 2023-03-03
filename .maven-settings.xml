@@ -6,7 +6,6 @@
   <activeProfiles>
     <activeProfile>github</activeProfile>
   </activeProfiles>
-
   <profiles>
     <profile>
       <id>github</id>
@@ -24,7 +23,7 @@
     <server>
       <id>github</id>
       <username>${env.SECRET_USER_NAME}</username>
-      <password>${env.GITHUB_TOKEN}</password>
+      <password>${env.SECRET_USER_TOKEN}</password>
     </server>
   </servers>
 </settings>

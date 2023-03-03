@@ -19,3 +19,4 @@ jobs:
         SECRET_USER_NAME: ${{ secrets.SECRET_USER_NAME }}
         SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
       run: mvn deploy    
+      
