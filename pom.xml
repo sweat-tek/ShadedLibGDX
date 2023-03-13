@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk.sdu.mmmi.cbse</groupId>
-    <artifactId>shadedLibGDX</artifactId>
+    <artifactId>shadedlibgdx</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>ShadedLibGDX</name>
+    <name>shadedlibgdx</name>
 
 
     <properties>
@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-backend-lwjgl</artifactId>
+            <artifactId>gdx-backend-lwjgl3</artifactId>
             <version>${libGDX.version}</version>
         </dependency>
         <dependency>
@@ -75,24 +75,16 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
+        <plugins>                                           
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.4.1</version>
-                <configuration>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>module-info.class</exclude>
-                            </excludes>
-                        </filter>                         
-                    </filters>
+                <configuration>                
                     <relocations>
                         <relocation>
                             <pattern>com.badlogic.gdx.utils</pattern>
-                            <shadedPattern>org.shaded.badlogic.gdx.utils</shadedPattern>
+                            <shadedPattern>com.badlogic.gdx.utils</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -113,7 +105,44 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
-            </plugin>            
+            </plugin>
+            <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <version>1.0.0.RC2</version>
+                <executions>
+                    <execution>
+                        <id>add-module-infos</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>add-module-info</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/</outputDirectory>
+                            <overwriteExistingFiles>true</overwriteExistingFiles>
+                            <modules>
+                                <module>
+                                    <artifact>
+                                        <groupId>dk.sdu.mmmi.cbse</groupId>
+                                        <artifactId>shadedlibgdx</artifactId>
+                                        <version>1.0.1-SNAPSHOT</version>
+                                    </artifact>
+                                    <moduleInfoSource>
+                                        module com.badlogic.gdx {
+                                        requires java.desktop;
+                                        requires jdk.unsupported;
+                                        exports com.badlogic.gdx;
+                                        exports com.badlogic.gdx.graphics;
+                                        exports com.badlogic.gdx.backends.lwjgl3;
+                                        exports com.badlogic.gdx.graphics.glutils;
+                                        }
+                                    </moduleInfoSource>
+                                </module>
+                            </modules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
